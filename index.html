@@ -1,0 +1,72 @@
+
+<html>
+  <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    <script>
+    //The DOMContentLoaded event listener waits for the HTML document to be fully loaded before executing the enclosed code.
+    document.addEventListener("DOMContentLoaded", function() {
+	const sceneEl = document.querySelector('a-scene');
+
+  //The arSystem variable is used to store a reference to the MindAR image system
+	let arSystem;
+
+  //It waits for the A-Frame scene to be loaded and then it retrieves the AR system from the scene
+
+  sceneEl.addEventListener('loaded', function () {
+	  arSystem = sceneEl.systems["mindar-image-system"];
+	});
+  //Event listeners are set up for buttons to control AR functionality
+
+	const plane0 = document.querySelector('#plane0');
+  const plane1 = document.querySelector('#plane1');
+
+	const startButton = document.querySelector("#example-start-button");
+	const stopButton = document.querySelector("#example-stop-button");
+
+	startButton.addEventListener('click', () => {
+	  console.log("start");
+	  arSystem.start(); // start AR
+	});
+	stopButton.addEventListener('click', () => {
+	  arSystem.stop(); // stop AR
+	});
+
+		// detect click event
+	plane0.addEventListener("click", event => {
+	  console.log("plane click");
+
+  window.open('http://stackoverflow.com', '_blank');
+	});
+
+  plane1.addEventListener("click", event => {
+	  console.log("plane click");
+
+  window.location.href = "https://avarts.ionio.gr/";
+	});
+      });
+    </script>
+  </head>
+  <body>
+    <div style="position: absolute; z-index: 1000">
+      <button id="example-start-button">Start</button>
+      <button id="example-stop-button">Stop</button>
+  </div>
+
+  <a-scene mindar-image="imageTargetSrc: ./assets/markers/musicband.mind; autoStart: false;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="near: 10; far: 10000; objects: .clickable"></a-camera>
+
+    <a-entity id = "target0" mindar-image-target="targetIndex: 0">
+    <a-plane id = "plane0" class="clickable" color="blue" opaciy="0.5" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
+    </a-entity>
+
+    <a-entity id="target1" mindar-image-target="targetIndex: 1">
+	  <a-plane id="plane1" class="clickable" color="red" opaciy="0.5" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
+    </a-entity>
+
+  </a-scene>
+  </body>
+</html>
