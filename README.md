@@ -1,1 +1,1 @@
-This is a testing code based on minar and aframe libraries
+This is a testing code based on mindar and aframe libraries
